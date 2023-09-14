@@ -1,15 +1,21 @@
+'use client'
+
+import { useContextVariable } from '@/context/ContextVariable'
 import { ComponentProps } from 'react'
 import { Textarea } from './ui/textarea'
 
 export type MainProps = ComponentProps<'div'>
 
 export function Main(props: MainProps) {
+  const { inputPrompt } = useContextVariable()
+
   return (
     <div className="flex flex-1 flex-col gap-4" {...props}>
       <div className="grid flex-1 grid-rows-2 gap-4">
         <Textarea
           placeholder="Inclua o prompt para a IA..."
           className="resize-none p-4 leading-relaxed"
+          value={inputPrompt}
         />
         <Textarea
           placeholder="Resultado gerado pela IA..."
