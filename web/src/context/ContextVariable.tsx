@@ -49,6 +49,9 @@ export function ContextVariable({ children }: { children: ReactNode }) {
       videoId,
       temperature,
     },
+    headers: {
+      'Content-Type': 'application/json',
+    },
   })
 
   return (
