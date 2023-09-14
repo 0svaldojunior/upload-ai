@@ -17,11 +17,11 @@ Content-Type: audio/mpeg
 ###
 
 # @name create-transcription
-POST http://localhost:3333/videos/028ed87e-6ba9-4f34-88fa-7d3a5944785f/transcription
+POST http://localhost:3333/videos/80a8660c-f8c1-458f-9d4a-a30d13f6b285/transcription
 Content-Type: application/json
 
 {
-  "prompt": "rocketseat, nlw, ia, sobre"
+  "prompt": "porque, eu, te, amo"
 }
 
 ###
