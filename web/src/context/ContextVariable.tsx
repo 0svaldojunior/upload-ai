@@ -3,18 +3,23 @@
 import { useCompletion } from 'ai/react'
 import {
   ChangeEvent,
+  FormEvent,
   ReactNode,
   createContext,
   useContext,
   useState,
 } from 'react'
 
+type HandleInputChangeType = (
+  e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>,
+) => void
+type HandleSubmitType = (e: FormEvent<HTMLFormElement>) => void
+
 type ContextVariableType = {
   input: string
   setInput: (newString: string) => void
-  handleInputChange: (
-    e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>,
-  ) => void
+  handleInputChange: HandleInputChangeType
+  handleSubmit: HandleSubmitType
   temperature: number
   setTemperature: (newInput: number) => void
   videoId: string | null
@@ -29,7 +34,7 @@ export function ContextVariable({ children }: { children: ReactNode }) {
   const [temperature, setTemperature] = useState(0.5)
   const [videoId, setVideoId] = useState<string | null>(null)
 
-  const { input, setInput, handleInputChange } = useCompletion({
+  const { input, setInput, handleInputChange, handleSubmit } = useCompletion({
     api: 'http://localhost:3333/ai/complete',
     body: {
       videoId,
@@ -43,6 +48,7 @@ export function ContextVariable({ children }: { children: ReactNode }) {
         input,
         setInput,
         handleInputChange,
+        handleSubmit,
         temperature: 0.5,
         setTemperature,
         videoId: null,
