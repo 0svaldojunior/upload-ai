@@ -20,8 +20,14 @@ import { Slider } from './ui/slider'
 export type AsideProps = ComponentProps<'aside'>
 
 export function Aside({ ...props }: AsideProps) {
-  const { temperature, setTemperature, setVideoId, setInput } =
-    useContextVariable()
+  const {
+    temperature,
+    setTemperature,
+    setVideoId,
+    setInput,
+    handleSubmit,
+    isLoading,
+  } = useContextVariable()
 
   return (
     <aside className="space-y-6" {...props}>
@@ -29,7 +35,7 @@ export function Aside({ ...props }: AsideProps) {
 
       <Separator />
 
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="space-y-2">
           <Label>Prompt</Label>
 
@@ -75,7 +81,7 @@ export function Aside({ ...props }: AsideProps) {
 
         <Separator />
 
-        <Button type="submit" className="w-full">
+        <Button disabled={isLoading} type="submit" className="w-full">
           Executar
           <Wand2 className="ml-2 h-4 w-4" />
         </Button>

@@ -20,6 +20,8 @@ type ContextVariableType = {
   setInput: (newString: string) => void
   handleInputChange: HandleInputChangeType
   handleSubmit: HandleSubmitType
+  completion: string
+  isLoading: boolean
   temperature: number
   setTemperature: (newInput: number) => void
   videoId: string | null
@@ -34,7 +36,14 @@ export function ContextVariable({ children }: { children: ReactNode }) {
   const [temperature, setTemperature] = useState(0.5)
   const [videoId, setVideoId] = useState<string | null>(null)
 
-  const { input, setInput, handleInputChange, handleSubmit } = useCompletion({
+  const {
+    input,
+    setInput,
+    handleInputChange,
+    handleSubmit,
+    completion,
+    isLoading,
+  } = useCompletion({
     api: 'http://localhost:3333/ai/complete',
     body: {
       videoId,
@@ -49,6 +58,8 @@ export function ContextVariable({ children }: { children: ReactNode }) {
         setInput,
         handleInputChange,
         handleSubmit,
+        completion,
+        isLoading,
         temperature: 0.5,
         setTemperature,
         videoId: null,
