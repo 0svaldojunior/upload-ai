@@ -7,7 +7,7 @@ import { Textarea } from './ui/textarea'
 export type MainProps = ComponentProps<'div'>
 
 export function Main(props: MainProps) {
-  const { inputPrompt } = useContextVariable()
+  const { input, handleInputChange } = useContextVariable()
 
   return (
     <div className="flex flex-1 flex-col gap-4" {...props}>
@@ -15,7 +15,8 @@ export function Main(props: MainProps) {
         <Textarea
           placeholder="Inclua o prompt para a IA..."
           className="resize-none p-4 leading-relaxed"
-          value={inputPrompt}
+          value={input}
+          onChange={handleInputChange}
         />
         <Textarea
           placeholder="Resultado gerado pela IA..."

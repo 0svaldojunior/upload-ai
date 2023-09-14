@@ -1,10 +1,24 @@
 'use client'
 
-import { ReactNode, createContext, useContext, useState } from 'react'
+import { useCompletion } from 'ai/react'
+import {
+  ChangeEvent,
+  ReactNode,
+  createContext,
+  useContext,
+  useState,
+} from 'react'
 
 type ContextVariableType = {
-  inputPrompt: string
-  setInputPrompt: (newInput: string) => void
+  input: string
+  setInput: (newString: string) => void
+  handleInputChange: (
+    e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>,
+  ) => void
+  temperature: number
+  setTemperature: (newInput: number) => void
+  videoId: string | null
+  setVideoId: (newInput: string) => void
 }
 
 const ContextVariableContext = createContext<ContextVariableType | undefined>(
@@ -12,10 +26,29 @@ const ContextVariableContext = createContext<ContextVariableType | undefined>(
 )
 
 export function ContextVariable({ children }: { children: ReactNode }) {
-  const [inputPrompt, setInputPrompt] = useState('')
+  const [temperature, setTemperature] = useState(0.5)
+  const [videoId, setVideoId] = useState<string | null>(null)
+
+  const { input, setInput, handleInputChange } = useCompletion({
+    api: 'http://localhost:3333/ai/complete',
+    body: {
+      videoId,
+      temperature,
+    },
+  })
 
   return (
-    <ContextVariableContext.Provider value={{ inputPrompt, setInputPrompt }}>
+    <ContextVariableContext.Provider
+      value={{
+        input,
+        setInput,
+        handleInputChange,
+        temperature: 0.5,
+        setTemperature,
+        videoId: null,
+        setVideoId,
+      }}
+    >
       {children}
     </ContextVariableContext.Provider>
   )

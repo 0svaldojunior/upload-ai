@@ -1,8 +1,8 @@
 'use client'
 
-import { useCompletion } from 'ai/react'
+import { useContextVariable } from '@/context/ContextVariable'
 import { Wand2 } from 'lucide-react'
-import { ComponentProps, useState } from 'react'
+import { ComponentProps } from 'react'
 import { PromptSelect } from './PromptSelect'
 import { VideoInputForm } from './VideoInputForm'
 import { Button } from './ui/button'
@@ -20,16 +20,8 @@ import { Slider } from './ui/slider'
 export type AsideProps = ComponentProps<'aside'>
 
 export function Aside({ ...props }: AsideProps) {
-  const [temperature, setTemperature] = useState(0.5)
-  const [videoId, setVideoId] = useState<string | null>(null)
-
-  const { setInput } = useCompletion({
-    api: 'http://localhost:3333/ai/complete',
-    body: {
-      videoId,
-      temperature,
-    },
-  })
+  const { temperature, setTemperature, setVideoId, setInput } =
+    useContextVariable()
 
   return (
     <aside className="space-y-6" {...props}>

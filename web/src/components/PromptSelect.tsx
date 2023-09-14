@@ -27,7 +27,7 @@ export function PromptSelect({
 }: PromptSelectProps) {
   const [prompts, setProps] = useState<Prompt[] | null>(null)
 
-  const { setInputPrompt } = useContextVariable()
+  const { setInput } = useContextVariable()
 
   useEffect(() => {
     api.get('/prompts').then((response) => {
@@ -41,7 +41,7 @@ export function PromptSelect({
     if (!selectedPrompt) return
 
     onPromptSelected(selectedPrompt.template)
-    setInputPrompt(selectedPrompt.template)
+    setInput(selectedPrompt.template)
   }
 
   return (
